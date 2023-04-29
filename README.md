@@ -6,6 +6,17 @@ This project is made for programming servers where the server members helps each
 # Table of Content
 - [DiscordTS-Tags-Bot](#discordts-tags-bot)
 - [Table of Content](#table-of-content)
+- [Preview](#preview)
+    - [/tag create](#tag-create)
+    - [/tag view](#tag-view)
+    - [/tag list](#tag-list)
+    - [/tag my-tags](#tag-my-tags)
+    - [/tag delete](#tag-delete)
+- [Installation](#installation)
+    - [Requirements](#requirements)
+        - [Optional](#optional)
+    - [Start up your project](#start-up-your-project)
+- [FAQs](#faqs)
 
 # Features
 - Simple & easy to understand.
