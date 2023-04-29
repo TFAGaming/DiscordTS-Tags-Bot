@@ -38,7 +38,7 @@ Replies with a Buttons paginator filled with public tags.
 ## /tag my-tags
 Replies with a Buttons paginator filled with public, private, and unlisted tags that you have created.
 
-![2023-04-29 19_15_26-#report-channel _ The unverified bots gang - Discord](https://user-images.githubusercontent.com/92172698/235318974-9742c662-2d02-49c5-a51d-af25f77aadf3.png)
+![2023-04-29 19_15_38-#report-channel _ The unverified bots gang - Discord](https://user-images.githubusercontent.com/92172698/235319005-fa0ce059-6ebe-4916-a91a-5e8e64b34213.png)
 
 ## /tag delete
 Deletes a tag that you have created in the Database.
