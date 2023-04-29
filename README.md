@@ -73,12 +73,12 @@ Deletes a tag that you have created in the Database.
 ## Start up your project
 1. Install TSC (**T**ype**S**cript **C**ompiler) globally:
 
-```coffee
+```
 npm install -g tsc
 ```
 
 2. Create a new npm project and then install the required dependencies:
-```coffee
+```
 npm init -y
 npm install discord.js@14 utilityxtreme simple-json-db dotenv
 ```
@@ -86,7 +86,7 @@ npm install discord.js@14 utilityxtreme simple-json-db dotenv
 3. Rename `.env.example` to `.env` and then fill all the required keys' values in that file.
 
 4. Compile the TypeScript files into JavaScript files:
-```coffee
+```
 npm run build
 ```
 
