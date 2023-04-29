@@ -3,9 +3,9 @@ A similar project to [TFAGaming/Tags-System-Discord-Bot](https://github.com/TFAG
 
 This project is made for programming servers where the server members helps each other by using tags. They can create a tag easily by using the command `/tag create` and view it by `/tag view`.
 
-# Table of Content
+# Table of Contents
 - [DiscordTS-Tags-Bot](#discordts-tags-bot)
-- [Table of Content](#table-of-content)
+- [Table of Contents](#table-of-contents)
 - [Preview](#preview)
     - [/tag create](#tag-create)
     - [/tag view](#tag-view)
