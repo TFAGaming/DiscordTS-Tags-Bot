@@ -1,0 +1,20 @@
+{
+  "name": "ccbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.9.0",
+    "dotenv": "^16.0.3",
+    "mongoose": "^7.1.0",
+    "simple-json-db": "^2.0.0",
+    "utilityxtreme": "^1.4.2"
+  }
+}

@@ -1,0 +1,12 @@
+import { SlashCommandBuilder } from "discord.js";
+import { Command } from "../../class/Command";
+
+export default new Command({
+    command_data: new SlashCommandBuilder()
+        .setName('')
+        .setDescription('')
+        .setDMPermission(false),
+    run: async (client, interaction, args) => {
+        
+    }
+})
