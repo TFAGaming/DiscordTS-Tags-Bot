@@ -5,7 +5,7 @@ import { interactionMessage } from "../../func/interactionMessage";
 
 export default new Command({
     command_data: new ContextMenuCommandBuilder()
-        .setName('profile')
+        .setName('Tags Profile')
         .setType(2)
         .setDMPermission(false),
     run: async (client, interaction) => {
@@ -31,12 +31,14 @@ export default new Command({
                 new EmbedBuilder()
                     .setTitle(userTarget?.tag + ' tag profile')
                     .addFields(
-                        { name: 'Author ID registered as', value: `\`${userTarget?.id}\`` },
-                        { name: 'Number of tags created', value: `${data.length}` },
-                        { name: 'Manage other users tags?', value: `${memberTarget?.permissions.has('Administrator') ? 'Yes': 'No'}` }
+                        { name: 'Author ID registered as', value: `\`${userTarget?.id}\``, inline: true },
+                        { name: 'Number of tags created', value: `${data.length}`, inline: true },
+                        { name: 'Tags', value: `${data.map((item) => item.name).join(', ')}.`, inline: true },
+                        { name: 'Manage other users tags?', value: `${memberTarget?.permissions.has('Administrator') ? 'Yes': 'No'}`, inline: true }
                     )
                     .setColor('#3f48cc')
             ]
         });
     }
 })
+
