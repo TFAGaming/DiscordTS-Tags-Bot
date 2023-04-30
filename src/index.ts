@@ -13,5 +13,5 @@ client.load_modules();
 client.load_application_commands();
 client.start();
 
-process.on('unhandledRejection', (e) => logger(`${e}`, 'error'));
-process.on('uncaughtException', (e) => logger(`${e}`, 'error'));
+process.on('unhandledRejection', (e) => logger(e, 'error'));
+process.on('uncaughtException', (e) => logger(e, 'error'));

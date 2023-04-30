@@ -12,15 +12,11 @@ export default new Command({
                 .setDescription('How many tags can a guild member create on their account?')
                 .addNumberOption((opt) =>
                     opt.setName('amount')
-                        .setDescription('The amount of tags that a member can create on the server, conditions: 1 <= AMOUNT <= 5')
+                        .setDescription('The amount of tags that a member can create on the server, condition: 1 <= x <= 5')
                         .setMaxValue(5)
                         .setMinValue(1)
                         .setRequired(true)
                 )
-        )
-        .addSubcommand((sub) =>
-            sub.setName('clear-all-bans')
-                .setDescription('Clears all the guild member bans, which means that they can use the tag commands again.')
         )
         .addSubcommand((sub) =>
             sub.setName('clear-all-tags')
@@ -58,16 +54,6 @@ export default new Command({
                 });
 
                 break;
-            };
-
-            case 'clear-all-bans': {
-                client.jsondb.set('bans', []);
-
-                await interaction.editReply({
-                    embeds: [
-                        interactionMessage('Done, all the banned users from using tags are now unbanned.', 'info')
-                    ]
-                });
             };
 
             case 'clear-all-tags': {

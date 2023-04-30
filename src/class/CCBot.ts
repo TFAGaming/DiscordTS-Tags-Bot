@@ -89,7 +89,7 @@ export class CCBot extends Client {
             
             await rest.put(Routes.applicationCommands(this.details.clientId), { body: this.commands_array });
 
-            logger('Finished loading application commands.', 'info');
+            logger('Finished loading application commands.', 'success');
         } catch (err) {
             logger('Could not load application commands.', 'error');
         };
@@ -97,7 +97,7 @@ export class CCBot extends Client {
 
     public async start(): Promise<void> {
         await connect(`${process.env.MONGODB_URI}`).then(() => {
-            logger('MongoDB cluster connected.');
+            logger('MongoDB connection string connected!', 'success');
         });
     
         await this.login(this.details.clientToken).catch((err) => {

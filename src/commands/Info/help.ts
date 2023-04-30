@@ -57,7 +57,7 @@ export default new Command({
                             } else {
                                 commands_slash.push(`</${cmd.name}:${cmd.id}>: ${cmd.description}`);
 
-                                break;
+                                break; // Important
                             };
                         };
                     } else {
@@ -71,6 +71,9 @@ export default new Command({
                     new EmbedBuilder()
                         .setTitle(client.user?.username + ' commands')
                         .setDescription(`${commands_slash?.map((element) => element).join('\n')}`)
+                        .setFooter({
+                            text: 'Invisible commands mentioned or cannot use them? It means that you do not have the required permissions to use these commands.'
+                        })
                         .setColor('#3f48cc')
                 ]
             });

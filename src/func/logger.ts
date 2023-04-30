@@ -1,4 +1,4 @@
-export default (message: string, type?: string) => {
+export default (message: any, type?: string) => {
     switch (type) {
         case 'error': {
             console.log('\x1b[31m[ERROR]\x1b[0m ' + message);
@@ -14,6 +14,12 @@ export default (message: string, type?: string) => {
 
         case 'info': {
             console.log('\x1b[34m[INFO]\x1b[0m ' + message);
+
+            break;
+        };
+
+        case 'success': {
+            console.log('\x1b[32m[SUCCESS]\x1b[0m ' + message);
 
             break;
         };

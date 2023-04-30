@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, EmbedBuilder, SlashCommandBuilder } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder } from "discord.js";
 import { Command } from "../../class/Command";
 import { interactionMessage } from "../../func/interactionMessage";
 import tagschema from "../../schema/tagschema";
@@ -59,7 +59,9 @@ export default new Command({
     run: async (client, interaction, args) => {
         const subcommandInput = args?.getSubcommand();
 
-        if (client.jsondb.get('toggle') === 'disabled') {
+        const systemtoggle: string = await client.jsondb.get('toggle');
+
+        if (systemtoggle === 'disabled') {
             await interaction.deferReply({ ephemeral: true });
 
             await interaction.editReply({
@@ -113,14 +115,14 @@ export default new Command({
                     time: 180000,
                     max: 1
                 }).then(async (i) => {
-                    const tagcontent = i.first();
+                    const messageinput = i.first();
 
-                    if (tagcontent?.content.toLowerCase() === 'cancel') {
-                        await tagcontent?.delete().catch(() => { });
+                    if (messageinput?.content.toLowerCase() === 'cancel') {
+                        await messageinput?.delete().catch(() => { });
 
                         await interaction.editReply({
                             embeds: [
-                                interactionMessage(`Cancelled.`, 'info')
+                                interactionMessage(`The action has been cancelled.`, 'info')
                             ]
                         });
 
@@ -130,18 +132,18 @@ export default new Command({
                     data = new tagschema({
                         name: tagname,
                         author: interaction.user.id,
-                        content: tagcontent?.content,
+                        content: messageinput?.content,
                         visibility: tagvisibility,
                         createdAt: Date.now()
                     });
 
-                    await tagcontent?.delete().catch(() => { });
+                    await messageinput?.delete().catch(() => { });
 
                     await data.save();
 
                     await interaction.editReply({
                         embeds: [
-                            interactionMessage(`The tag has been successfully created.\nName: \`${tagname}\`\nVisibility: **${tagvisibility}**`, 'info', `Run the command \'/tag view ${tagname}\' to view the content.`)
+                            interactionMessage(`The tag has been successfully published.\nName: \`${tagname}\`\nVisibility: **${tagvisibility}**`, 'info', `Run the command \'/tag view ${tagname}\' to view the content.`)
                         ]
                     });
                 });
@@ -176,12 +178,65 @@ export default new Command({
                     return;
                 };
 
-                await tagschema.deleteOne({ name: tagname });
+                let components: ButtonBuilder[] = [
+                    new ButtonBuilder()
+                        .setLabel('Yes')
+                        .setStyle(ButtonStyle.Secondary)
+                        .setCustomId('delete_action_accepted'),
+                    new ButtonBuilder()
+                        .setLabel('No')
+                        .setStyle(ButtonStyle.Primary)
+                        .setCustomId('delete_action_denied')
+                ];
 
                 await interaction.editReply({
                     embeds: [
-                        interactionMessage('The tag \`' + tagname + '\` has been deleted.', 'info')
+                        interactionMessage('Are you sure that you want to delete \`' + tagname + '\`?\nIf you accept the action, the tag will be gone forever!', 'warn', 'No response after 30 seconds will cancel this interaction.')
+                    ],
+                    components: [
+                        new ActionRowBuilder<ButtonBuilder>()
+                            .addComponents(
+                                components
+                            )
                     ]
+                });
+
+                const collector = interaction.channel?.createMessageComponentCollector({
+                    filter: (i) => i.customId === 'delete_action_accepted' || i.customId === 'delete_action_denied',
+                    time: 30000
+                });
+
+                collector?.on('collect', async (i) => {
+                    await i.deferReply({ ephemeral: true });
+
+                    if (i.customId === 'delete_action_accepted') {
+                        await tagschema.deleteOne({ name: tagname });
+                        
+                        await i.editReply({
+                            embeds: [
+                                interactionMessage('The tag \`' + tagname + '\` has been deleted.', 'info')
+                            ]
+                        });
+                    } else {
+                        await i.editReply({
+                            embeds: [
+                                interactionMessage(`The action has been cancelled.`, 'info')
+                            ]
+                        });
+                    };
+
+                    collector.stop();
+                });
+
+                collector?.once('end', async () => {
+                    await interaction.editReply({
+                        components: [
+                            new ActionRowBuilder<ButtonBuilder>()
+                                .addComponents(
+                                    components.map((btn) => btn.setDisabled(true).setStyle(ButtonStyle.Secondary))
+                                )
+                        ]
+                    });
                 });
 
                 break;
@@ -259,7 +314,7 @@ export default new Command({
                 const paginator = new ButtonsPaginatorBuilder(interaction, { time: 300000 })
                     .setButtons(
                         { label: 'Previous', id: 'previous', type: ButtonStyle.Secondary, emoji: { name: '⬅️' } },
-                        { label: 'Next', id: 'next', type: ButtonStyle.Secondary, emoji: { name: '➡️'} }
+                        { label: 'Next', id: 'next', type: ButtonStyle.Secondary, emoji: { name: '➡️' } }
                     )
 
                 let firstindex = 0;
@@ -270,8 +325,8 @@ export default new Command({
 
                     const str = toadd.map((element, index) => `${index + 1}. ${element.name}`).join('\n');
 
-                    firstindex++;
-                    lastindex+=10;
+                    firstindex += 9;
+                    lastindex += 10;
 
                     paginator.addPages({
                         content: str
@@ -307,7 +362,7 @@ export default new Command({
                 const paginator = new ButtonsPaginatorBuilder(interaction, { time: 300000 })
                     .setButtons(
                         { label: 'Previous', id: 'previous', type: ButtonStyle.Secondary, emoji: { name: '⬅️' } },
-                        { label: 'Next', id: 'next', type: ButtonStyle.Secondary, emoji: { name: '➡️'} }
+                        { label: 'Next', id: 'next', type: ButtonStyle.Secondary, emoji: { name: '➡️' } }
                     )
 
                 let firstindex = 0;
@@ -318,8 +373,8 @@ export default new Command({
 
                     const str = toadd.map((element, index) => `${index + 1}. ${element.name}`).join('\n');
 
-                    firstindex++;
-                    lastindex+=10;
+                    firstindex += 9;
+                    lastindex += 10;
 
                     paginator.addPages({
                         content: str
