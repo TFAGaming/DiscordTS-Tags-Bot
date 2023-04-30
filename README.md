@@ -63,15 +63,16 @@ Deletes a tag that you have created in the Database.
 - Libraries
     - **discord.js** version ^14.9.0: `npm install discord.js@14`
     - **utilityxtreme** version ^latest: `npm install utilityxtreme`
+    - **mongoose** version ^latest: `npm install mongoose`
     - **simple-json-db** version ^latest: `npm install simple-json-db`
     - **dotenv** version ^latest: `npm install dotenv`
 
-## Optional
+### Optional
 - Software
     - **Visual Studio Code** version ^latest: [Click to download](https://code.visualstudio.com/download)
 
 ## Start up your project
-1. Install TSC (**T**ype**S**cript **C**ompiler) globally:
+1. Install TSC (**T**ype**S**cript **C**ompiler) from npm globally:
 
 ```
 npm install -g tsc
@@ -80,7 +81,7 @@ npm install -g tsc
 2. Create a new npm project and then install the required dependencies:
 ```
 npm init -y
-npm install discord.js@14 utilityxtreme simple-json-db dotenv
+npm install discord.js@14 utilityxtreme mongoose simple-json-db dotenv
 ```
 
 3. Rename `.env.example` to `.env` and then fill all the required keys' values in that file.
